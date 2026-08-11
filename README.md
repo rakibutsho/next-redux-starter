@@ -1,13 +1,14 @@
-# next-redux-starter — Next.js + TypeScript + Redux + shadcn-style Boilerplate
+# Complete Next.js Frontend Boilerplate with Dashboard Layout
 
-This repository is a lightweight Next.js boilerplate that demonstrates a recommended folder structure and wiring for:
+This repository is a complete and robust Next.js frontend boilerplate that provides a modern, responsive dashboard layout out-of-the-box, alongside a recommended folder structure and wiring for:
 
-- Next.js 16 + React 19
+- Next.js 16 + React 19 (App Router)
 - Redux Toolkit + React-Redux (with `redux-persist`)
 - shadcn-style component organization (component-driven UI under `src/components` / `src/components/ui`)
-- Tailwind CSS and utility-first styling
+- Tailwind CSS (v4) and utility-first styling
+- A fully responsive, modern Dashboard Layout (with collapsible sidebar, clean headers, and user dropdowns)
 
-Use this starter when you want a modern Next.js app scaffolded with a predictable folder layout and ready-to-use Redux integration.
+Use this starter when you want a modern Next.js app scaffolded with a predictable folder layout, ready-to-use Redux integration, and a premium dashboard UI ready to go.
 
 ## Quick links
 
@@ -23,6 +24,7 @@ Use this starter when you want a modern Next.js app scaffolded with a predictabl
 - Example auth slice at `src/redux/features/auth/authSlice.ts`
 - Organized UI components under `src/components` and `src/components/ui` (shadcn-inspired)
 - Common components: Navbar, Footer, Loader, PageNotFound
+- **Dashboard Layout**: A complete, modern dashboard template at `src/app/(dashboardLayout)` featuring an elegantly styled, icon-collapsible sidebar (`AppSidebar`), responsive header (`AppHeader`), and polished user navigation (`NavUser`, `NavMain`, `TeamSwitch`).
 - Utility helper at `src/lib/utils.ts`
 
 ## Contract (small)
