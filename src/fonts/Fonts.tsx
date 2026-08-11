@@ -1,5 +1,4 @@
 import {
-  Bitcount_Grid_Single,
   Gravitas_One,
   Lobster_Two,
   Open_Sans,
@@ -18,12 +17,6 @@ export const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-playfair",
-});
-
-export const bitcount = Bitcount_Grid_Single({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-bitcount",
 });
 
 export const lobster = Lobster_Two({

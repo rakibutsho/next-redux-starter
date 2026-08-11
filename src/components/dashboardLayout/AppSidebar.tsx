@@ -15,7 +15,17 @@ import {
 import type * as React from "react";
 
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import { useLogout } from "@/hooks/useLogout";
+import { LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { TeamSwitcher } from "./TeamSwitch";
@@ -123,28 +133,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const buildUrl = (path: string) => (path ? `${basePath}${path}` : basePath);
 
+  const { handleLogoutClick } = useLogout();
+
   return (
     <Sidebar
-      collapsible="offcanvas"
-      className="[--sidebar-primary:#10A34B] [--sidebar-primary-foreground:#FFFFFF]"
+      collapsible="icon"
+      className="h-full [--sidebar-primary:#4F46E5] [--sidebar-primary-foreground:#FFFFFF] border-r border-gray-100 bg-white shadow-sm"
       {...props}
     >
-      <SidebarContent className="px-3 pt-2">
-        <TeamSwitcher
-          teams={[
-            { name: isAdminPath ? "Admin" : "Default", logo: () => null },
-          ]}
-          user={{
-            name:
-              currentUser?.name ??
-              (isAdminPath ? "Admin User" : "Default User"),
-            email:
-              currentUser?.email ??
-              (isAdminPath ? "admin@guicopay.gn" : "user@guicopay.gn"),
-            avatar: currentUser?.avatar,
-            roleLabel: isAdminPath ? "Admin" : "User",
-          }}
-        />
+      <TeamSwitcher
+        teams={[
+          { name: isAdminPath ? "Admin" : "Default", logo: () => null },
+        ]}
+        user={{
+          name:
+            currentUser?.name ??
+            (isAdminPath ? "Admin User" : "Default User"),
+          email:
+            currentUser?.email ??
+            (isAdminPath ? "admin@guicopay.gn" : "user@guicopay.gn"),
+          avatar: currentUser?.avatar,
+          roleLabel: isAdminPath ? "Admin" : "User",
+        }}
+      />
+      <SidebarContent>
         <NavMain
           title={isAdminPath ? "Admin" : "Main"}
           items={navigationData.main.map((item) => ({
@@ -162,6 +174,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           }))}
         />
       </SidebarContent>
+
+      {/* Logout pinned to bottom */}
+      <SidebarFooter className="border-t border-gray-100">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Log out"
+              onClick={handleLogoutClick}
+              className="h-10 rounded-lg text-[13.5px] font-medium cursor-pointer text-red-500 transition-all duration-150 hover:bg-red-50 hover:text-red-600"
+            >
+              <LogOut className="h-[18px] w-[18px] shrink-0" />
+              <span>Log out</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
 
       <SidebarRail />
     </Sidebar>

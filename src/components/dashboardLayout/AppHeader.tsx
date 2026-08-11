@@ -1,37 +1,25 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { SidebarTrigger } from "../ui/sidebar";
-
-// import { Bell } from "lucide-react"
-// import { Button } from "./ui/button"
+import { NavUser } from "./NavUser";
 
 const AppHeader = () => {
-  //   const { data: userData } = {};
+  const user = {
+    name: "Admin User",
+    email: "admin@princeoochie.com",
+    avatar: "https://github.com/shadcn.png",
+  };
+
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-2 bg-[#EFEFEF] border-b border-gray-200 px-6">
+    <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] transition-all duration-300">
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <SidebarTrigger className="-ml-1" />
-        {/* <div className="flex items-center gap-2">
-          <h1 className="text-4xl font-bold">Welcome Back!</h1>
-        </div> */}
       </div>
 
       {/* Right Side */}
       <div className="flex items-center gap-3">
-        {/* <Button variant="ghost" size="icon" className="h-10 w-10 text-gray-500 hover:text-gray-700 hover:bg-gray-100">
-          <Bell className="h-5 w-5" />
-        </Button> */}
-
-        <Avatar className="h-10 w-10 border-2 border-gray-200">
-          <AvatarImage
-            // src={userData?.data?.userProfile?.profileImage}
-            alt="User avatar"
-            className="object-fill"
-          />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
+        <NavUser user={user} />
       </div>
     </header>
   );

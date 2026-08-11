@@ -2,6 +2,7 @@
 
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -28,11 +29,11 @@ export function NavMain({
   return (
     <SidebarGroup>
       {title && (
-        <p className="px-2 pb-2 pt-1 text-xs font-medium text-[#8A8D91]">
+        <SidebarGroupLabel className="mb-1 px-3 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
           {title}
-        </p>
+        </SidebarGroupLabel>
       )}
-      <SidebarMenu className="space-y-1">
+      <SidebarMenu>
         {items.map((item) => {
           const active =
             item.isActive ||
@@ -41,22 +42,29 @@ export function NavMain({
 
           return (
             <SidebarMenuItem key={item.title}>
-              <Link href={item.url}>
-                <SidebarMenuButton
-                  tooltip={item.title}
-                  onClick={item.onClick}
-                  className={`flex items-center gap-4 rounded-xl px-3 py-2.5 w-full cursor-pointer text-center transition-colors ${
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                onClick={item.onClick}
+                isActive={active}
+                className={`group/nav-item relative h-10 w-full rounded-lg px-3 transition-all duration-150
+                  ${
                     active
-                      ? "text-white bg-linear-to-r from-[#10A34B] to-[#0B843C] font-medium hover:from-[#0B843C] hover:to-[#0B843C] hover:text-white"
-                      : "text-[#8A8D91] hover:bg-white/80 hover:text-[#3A3A3A]"
+                      ? "bg-[#4F46E5] text-white shadow-sm shadow-[#4F46E5]/30 hover:bg-[#4338CA] hover:text-white"
+                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   }`}
-                >
-                  <div className="flex items-center gap-3">
-                    {item.icon && <item.icon className="h-4 w-4" />}
-                    <span className="text-sm font-medium">{item.title}</span>
-                  </div>
-                </SidebarMenuButton>
-              </Link>
+              >
+                <Link href={item.url} className="flex items-center gap-3">
+                  {item.icon && (
+                    <item.icon
+                      className={`h-[18px] w-[18px] shrink-0 ${active ? "text-gray-500" : "text-gray-500 group-hover/nav-item:text-gray-700"}`}
+                    />
+                  )}
+                  <span className="truncate text-[13.5px] font-medium">
+                    {item.title}
+                  </span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           );
         })}
