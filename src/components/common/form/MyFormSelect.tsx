@@ -1,5 +1,5 @@
 "use client";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, RegisterOptions } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Default Icons
 import React, { useState } from "react";
@@ -20,6 +20,7 @@ interface MyFormSelectProps {
   setSelectedState?: (value: string | number) => void;
   upIcon?: React.ReactNode; // Custom Up Icon (Optional)
   downIcon?: React.ReactNode; // Custom Down Icon (Optional)
+  rules?: RegisterOptions;
 }
 
 const MyFormSelect = ({
@@ -33,6 +34,7 @@ const MyFormSelect = ({
   setSelectedState,
   upIcon = <FaChevronUp />, // Default Up Icon
   downIcon = <FaChevronDown />, // Default Down Icon
+  rules,
 }: MyFormSelectProps) => {
   const { control } = useFormContext();
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +44,7 @@ const MyFormSelect = ({
       {label && (
         <label
           htmlFor={name}
-          className={cn("text-base font-normal", labelClassName)}
+          className={cn("font-medium mb-1.5 text-gray-700 text-sm", labelClassName)}
         >
           {label}
         </label>
@@ -50,7 +52,10 @@ const MyFormSelect = ({
       <Controller
         name={name}
         control={control}
-        rules={required ? { required: `${label || name} is required` } : {}} // Fix: Show correct field name
+        rules={{
+          ...(required ? { required: `${label || name} is required` } : {}),
+          ...rules,
+        }}
         render={({
           field: { value, onChange, ...field },
           fieldState: { error },
@@ -69,9 +74,9 @@ const MyFormSelect = ({
               onFocus={() => setIsOpen(true)}
               onBlur={() => setIsOpen(false)}
               className={cn(
-                "w-full  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none",
-                "transition-all ease-in-out ",
-                error ? "border-danger" : "border-gray-600",
+                "w-full px-4 py-3 text-sm font-normal rounded-xl bg-gray-50 text-gray-900 border border-gray-200 appearance-none",
+                "focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-200",
+                error ? "border-red-500 focus:border-red-500 focus:ring-red-500/20 bg-red-50/50" : "",
                 selectClassName
               )}
             >

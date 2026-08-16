@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch, RegisterOptions } from "react-hook-form";
 
 interface MyFormInputTextProps {
   type?: "text" | "email" | "number" | "url" | "tel";
@@ -15,6 +15,7 @@ interface MyFormInputTextProps {
   labelClassName?: string;
   inputClassName?: string;
   disabled?: boolean;
+  rules?: RegisterOptions;
 }
 
 const MyFormInputText = ({
@@ -28,6 +29,7 @@ const MyFormInputText = ({
   labelClassName,
   inputClassName,
   disabled = false,
+  rules,
 }: MyFormInputTextProps) => {
   const { control, getValues } = useFormContext();
   const inputValue = useWatch({ control, name }) ?? "";
@@ -37,9 +39,9 @@ const MyFormInputText = ({
   }, [inputValue, onValueChange]);
 
   const baseFieldClass = cn(
-    "w-full px-4 py-3 font-normal rounded-md bg-white text-gray-900 placeholder-gray-400 border border-gray-300",
-    "focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors",
-    disabled && "bg-gray-100 text-gray-500 cursor-not-allowed",
+    "w-full px-4 py-3 text-sm font-normal rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 border border-gray-200",
+    "focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-200",
+    disabled && "bg-gray-100 text-gray-500 cursor-not-allowed opacity-70",
     inputClassName
   );
 
@@ -48,7 +50,7 @@ const MyFormInputText = ({
       {label && (
         <label
           htmlFor={name}
-          className={cn("font-normal mb-1 text-gray-900", labelClassName)}
+          className={cn("font-medium mb-1.5 text-gray-700 text-sm", labelClassName)}
         >
           {label} {required && <span className="text-red-500">*</span>}
         </label>
@@ -58,13 +60,10 @@ const MyFormInputText = ({
         name={name}
         control={control}
         defaultValue={getValues(name) ?? ""}
-        rules={
-          required
-            ? {
-                required: `${label ? `${label} is required` : "This field is required"}`,
-              }
-            : {}
-        }
+        rules={{
+          ...(required ? { required: `${label ? `${label} is required` : "This field is required"}` } : {}),
+          ...rules,
+        }}
         render={({ field, fieldState: { error } }) => (
           <div className="relative w-full">
             <input
@@ -73,7 +72,7 @@ const MyFormInputText = ({
               type={type}
               placeholder={placeholder}
               disabled={disabled}
-              className={cn(baseFieldClass, error && "border-red-500 focus:ring-red-300")}
+              className={cn(baseFieldClass, error && "border-red-500 focus:border-red-500 focus:ring-red-500/20 bg-red-50/50")}
               value={field.value ?? ""}
             />
             <div className="h-4 mt-1">
