@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyFormFile, MyFormInputText, MyFormWrapper } from '../form'
+import { MyFormFile, MyFormInputText, MyFormWrapper } from '../common/form'
 import { Button } from '../ui/button';
 
 function Common() {

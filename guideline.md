@@ -88,7 +88,7 @@ const MyList = () => {
 
 ---
 
-## 2. Form Components (`src/components/form/`)
+## 2. Form Components (`src/components/common/form/`)
 
 This project uses `react-hook-form` heavily. All input components are connected to it under the hood via `useFormContext`. **Because of this, every custom form input must be wrapped inside the `<MyFormWrapper>` component.**
 
