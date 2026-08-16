@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Common from "./Common";
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
           Start building something amazing with Next.js and TypeScript
         </p>
       </div>
+      <Common />
     </div>
   );
 }
